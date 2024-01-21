@@ -1,0 +1,58 @@
+version: '3.7'
+
+services:
+    app:
+        build:
+            context: .
+            dockerfile: .docker/Dockerfile
+            args:
+                progress: plain
+        image: animasiku-web-server:2
+        container_name: animasiku-app-5
+        restart: always
+        environment:
+            - TZ=Asia/Jakarta
+        ports:
+            - 8382:80
+        volumes:
+            - ./www:/var/www/html
+        # depends_on:
+        #     - mariadb
+        # networks:
+        #     - animasiku-network-5
+
+#     mariadb:
+#         image: mariadb:10.6.8
+#         volumes:
+#             - vol-mariadb-5:/var/lib/mysql
+#         environment:
+#             MYSQL_ALLOW_EMPTY_PASSWORD: "no"
+#             MYSQL_ROOT_PASSWORD: "secret"
+#             MYSQL_USER: "myuser"
+#             MYSQL_PASSWORD: "mypass"
+#             MYSQL_DATABASE: "mydb"
+#         restart: always
+#         ports:
+#             - 8381:3306
+#         networks:
+#             - animasiku-network-5
+
+#     phpmyadmin:
+#         image: phpmyadmin/phpmyadmin
+#         restart: always
+#         environment:
+#             UPLOAD_LIMIT: "750M"
+#         links:
+#             - mariadb:db
+#         ports:
+#             - 8383:80
+#         depends_on:
+#             - mariadb
+#         networks:
+#             - animasiku-network-5
+
+# networks:
+#     animasiku-network-5:
+
+# volumes:
+#     vol-mariadb-5:
